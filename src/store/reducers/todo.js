@@ -1,5 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../../shared/utility";
+import {
+  updateObject,
+  addOrUpdateArrayElementWithKey
+} from "../../shared/utility";
 
 const initialState = {
   todoList: [],
@@ -22,7 +25,26 @@ function fetchTodoListSuccess(state, action) {
 function fetchTodoListFail(state) {
   return updateObject(state, {
     loading: false,
-    error: "Something went wrong"
+    error: "Something went wrong with fetching todo list"
+  });
+}
+
+function addOrEditTodoSuccess(state, action) {
+  return updateObject(state, {
+    loading: false,
+    error: null,
+    todoList: addOrUpdateArrayElementWithKey(state.todoList, "id", action.todo)
+  });
+}
+
+function addOrEditTodoStart(state) {
+  return updateObject(state, { loading: true, error: null });
+}
+
+function addOrEditTodoFail(state) {
+  return updateObject(state, {
+    loading: false,
+    error: "Something went wrong with adding todo"
   });
 }
 
@@ -34,6 +56,12 @@ const reducer = (state = initialState, action) => {
       return fetchTodoListSuccess(state, action);
     case actionTypes.FETCH_TODO_LIST_FAIL:
       return fetchTodoListFail(state);
+    case actionTypes.ADD_OR_EDIT_TODO_START:
+      return addOrEditTodoStart(state);
+    case actionTypes.ADD_OR_EDIT_TODO_SUCCESS:
+      return addOrEditTodoSuccess(state, action);
+    case actionTypes.ADD_OR_EDIT_TODO_FAIL:
+      return addOrEditTodoFail(state);
     default:
       return state;
   }
