@@ -32,7 +32,9 @@ const TodoList = props => {
         />
       ))
     ) : (
-      <tr className="text-center">Your TODO list is empty!</tr>
+      <tr className="text-center">
+        <td>Your TODO list is empty!</td>
+      </tr>
     );
 
   return (
