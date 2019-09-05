@@ -1,9 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 import { handleActions } from "redux-actions";
-import {
-  updateObject,
-  addOrUpdateArrayElementWithKey
-} from "../../shared/utility";
+import dotProp from "dot-prop-immutable-chain";
+import { addOrUpdateArrayElementWithKey } from "../../shared/utility";
 
 const initialState = {
   todoList: [],
@@ -12,60 +10,69 @@ const initialState = {
 };
 
 function fetchTodoListStart(state) {
-  return updateObject(state, { loading: true, error: null });
+  return dotProp(state)
+    .set("loading", true)
+    .set("error", null)
+    .value();
 }
 
 function fetchTodoListSuccess(state, todoList) {
-  return updateObject(state, {
-    todoList: todoList,
-    loading: false,
-    error: null
-  });
+  return dotProp(state)
+    .set("todoList", todoList)
+    .set("loading", false)
+    .set("error", null)
+    .value();
 }
 
 function fetchTodoListFail(state) {
-  return updateObject(state, {
-    loading: false,
-    error: "Something went wrong with fetching todo list"
-  });
+  return dotProp(state)
+    .set("loading", false)
+    .set("error", "Something went wrong with fetching todo list")
+    .value();
 }
 
 function addOrEditTodoSuccess(state, todo) {
-  return updateObject(state, {
-    loading: false,
-    error: null,
-    todoList: addOrUpdateArrayElementWithKey(state.todoList, "id", todo)
-  });
+  return dotProp(state)
+    .set("todoList", addOrUpdateArrayElementWithKey(state.todoList, "id", todo))
+    .set("loading", false)
+    .set("error", null)
+    .value();
 }
 
 function addOrEditTodoStart(state) {
-  return updateObject(state, { loading: true, error: null });
+  return dotProp(state)
+    .set("loading", true)
+    .set("error", null)
+    .value();
 }
 
 function addOrEditTodoFail(state) {
-  return updateObject(state, {
-    loading: false,
-    error: "Something went wrong with adding todo"
-  });
+  return dotProp(state)
+    .set("loading", false)
+    .set("error", "Something went wrong with adding todo")
+    .value();
 }
 
 function removeTodoStart(state) {
-  return updateObject(state, { loading: true, error: null });
+  return dotProp(state)
+    .set("loading", true)
+    .set("error", null)
+    .value();
 }
 
 function removeTodoSuccess(state, id) {
-  return updateObject(state, {
-    loading: false,
-    error: null,
-    todoList: state.todoList.filter(todo => todo.id !== id)
-  });
+  return dotProp(state)
+    .set("loading", false)
+    .set("error", null)
+    .set("todoList", state.todoList.filter(todo => todo.id !== id))
+    .value();
 }
 
 function removeTodoFail(state) {
-  return updateObject(state, {
-    loading: false,
-    error: "Something went wrong with removing todo item"
-  });
+  return dotProp(state)
+    .set("loading", false)
+    .set("error", "Something went wrong with removing todo item")
+    .value();
 }
 
 const reducer = handleActions(

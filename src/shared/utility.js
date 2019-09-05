@@ -1,7 +1,3 @@
-export const updateObject = (object, updatedFields) => {
-  return { ...object, ...updatedFields };
-};
-
 export const addOrUpdateArrayElementWithKey = (
   originalArray,
   key,

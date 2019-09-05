@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Input } from "reactstrap";
-import { updateObject } from "../../../../shared/utility";
+import dotProp from "dot-prop-immutable-chain";
 
 const TodoItemTitleInput = props => {
   const [isEditing, setIsEditing] = useState(false);
@@ -27,9 +27,7 @@ const TodoItemTitleInput = props => {
   };
 
   const saveNewTitle = () => {
-    const updatedTodo = updateObject(todoData, {
-      title: todoNewTitle
-    });
+    const updatedTodo = dotProp.set(todoData, "title", todoNewTitle);
     props.onTodoUpdated(updatedTodo).then(() => {
       exitFromEditModeHandler();
     });

@@ -1,14 +1,16 @@
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
-import { updateObject } from "../../../../shared/utility";
+import dotProp from "dot-prop-immutable-chain";
 
 const TodoItemCompleted = props => {
   const todoData = props.todoData;
 
   const onCompleteChangedHandler = event => {
-    const updatedTodo = updateObject(todoData, {
-      isCompleted: event.target.checked
-    });
+    const updatedTodo = dotProp.set(
+      todoData,
+      "isCompleted",
+      event.target.checked
+    );
     props.onTodoUpdated(updatedTodo);
   };
 
