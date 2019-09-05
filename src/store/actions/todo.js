@@ -50,15 +50,15 @@ export const addOrEditTodo = todo => {
 };
 
 export const removeTodoStart = () => {
-  return { type: actionTypes.REMOVE_TODO_START, loading: true, error: null };
+  return { type: actionTypes.REMOVE_TODO_START };
 };
 
 export const removeTodoSuccess = id => {
-  return { type: actionTypes.REMOVE_TODO_SUCCESS, loading: false, error: null };
+  return { type: actionTypes.REMOVE_TODO_SUCCESS, id };
 };
 
 export const removeTodoFail = error => {
-  return { type: actionTypes.REMOVE_TODO_FAIL, loading: false, error };
+  return { type: actionTypes.REMOVE_TODO_FAIL, error };
 };
 
 export const removeTodo = id => {
