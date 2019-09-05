@@ -22,8 +22,29 @@ export const fetchTodoList = () => {
     dispatch(fetchTodoListStart());
     fetchTodoListAsync()
       .then(todoList => {
-        fetchTodoListSuccess(todoList);
+        dispatch(fetchTodoListSuccess(todoList));
       })
-      .catch(error => fetchTodoListFail(error));
+      .catch(error => dispatch(fetchTodoListFail(error)));
+  };
+};
+
+export const addOrEditTodoStart = () => {
+  return { type: actionTypes.ADD_OR_EDIT_TODO_START };
+};
+
+export const addOrEditTodoSuccess = todo => {
+  return { type: actionTypes.ADD_OR_EDIT_TODO_SUCCESS, todo };
+};
+
+export const addOrEditTodoFail = error => {
+  return { type: actionTypes.ADD_OR_EDIT_TODO_FAIL, error };
+};
+
+export const addOrEditTodo = todo => {
+  return dispatch => {
+    dispatch(addOrEditTodoStart());
+    putTodoAsync(todo)
+      .then(addedTodo => dispatch(addOrEditTodoSuccess(addedTodo)))
+      .catch(error => dispatch(addOrEditTodoFail(error)));
   };
 };
