@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Form, FormGroup, Label, Row, Col, Button, Input } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  Label,
+  Row,
+  Col,
+  Button,
+  Input,
+  Card,
+  CardBody
+} from "reactstrap";
 
 import * as actions from "../../store/actions/index";
 
@@ -13,34 +23,45 @@ const AddTodoForm = props => {
   };
 
   return (
-    <Form onSubmit={onSubmitHandler}>
-      <Row>
-        <Col lg={12}>
-          <Label for="newTodoTitle">Title</Label>
+    <Card>
+      <CardBody>
+        <Form onSubmit={onSubmitHandler}>
           <Row>
-            <Col xs={10}>
-              <FormGroup>
-                <Input
-                  type="text"
-                  id="newTodoTitle"
-                  placeholder="Please type what todo"
-                  value={todoTitle}
-                  onChange={event => {
-                    setTodoTitle(event.target.value);
-                  }}
-                />
-              </FormGroup>
+            <Col lg={12}>
+              <Label for="newTodoTitle">Title</Label>
+              <Row>
+                <Col xs={10}>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      id="newTodoTitle"
+                      placeholder="Please type what todo"
+                      value={todoTitle}
+                      onChange={event => {
+                        setTodoTitle(event.target.value);
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+                <FormGroup>
+                  <Button color="success" onClick={onSubmitHandler}>
+                    Add
+                  </Button>
+                </FormGroup>
+              </Row>
             </Col>
-            <FormGroup>
-              <Button color="success" onClick={onSubmitHandler}>
-                Add
-              </Button>
-            </FormGroup>
           </Row>
-        </Col>
-      </Row>
-    </Form>
+        </Form>
+      </CardBody>
+    </Card>
   );
+};
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.todo.loading,
+    error: state.todo.error
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -50,6 +71,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddTodoForm);
