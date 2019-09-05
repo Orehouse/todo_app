@@ -17,12 +17,25 @@ import * as actions from "../../store/actions/index";
 
 const AddTodoForm = props => {
   const [todoTitle, setTodoTitle] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const onSubmitHandler = event => {
     event.preventDefault();
-    props
-      .onTodoAdded({ title: todoTitle, isCompleted: false })
-      .then(() => setTodoTitle(""));
+    if (!isFormValid) return;
+    props.onTodoAdded({ title: todoTitle, isCompleted: false }).then(() => {
+      setTodoTitle("");
+      setIsFormValid(false);
+    });
+  };
+
+  const onChangeHandler = event => {
+    const value = event.target.value;
+    if (value.trim().length > 0) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+    setTodoTitle(value);
   };
 
   return (
@@ -40,15 +53,17 @@ const AddTodoForm = props => {
                       id="newTodoTitle"
                       placeholder="Please type what todo"
                       value={todoTitle}
-                      onChange={event => {
-                        setTodoTitle(event.target.value);
-                      }}
+                      onChange={onChangeHandler}
                     />
                   </FormGroup>
                 </Col>
                 <Col xs={2}>
                   <FormGroup>
-                    <Button color="success" onClick={onSubmitHandler}>
+                    <Button
+                      color="success"
+                      onClick={onSubmitHandler}
+                      disabled={!isFormValid}
+                    >
                       Add
                     </Button>
                   </FormGroup>
