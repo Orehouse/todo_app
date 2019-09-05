@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Button, FormGroup, Input, Label } from "reactstrap";
-import OutsideClickHandler from "react-outside-click-handler";
-import { updateObject } from "../../../shared/utility";
-import * as classes from "./ToolItem.module.css";
-
+import { Button } from "reactstrap";
+import TodoItemTitle from "./TodoItemTitle/TodoItemTitle";
+import TodoItemCompleted from "./TodoItemCompleted/TodoItemCompleted";
 import * as actions from "../../../store/actions/index";
+import * as classes from "./ToolItem.module.css";
 
 const TodoItem = props => {
   const [todoData, setTodoData] = useState({
@@ -13,87 +12,24 @@ const TodoItem = props => {
     title: props.title,
     isCompleted: props.isCompleted
   });
-  const [todoNewTitle, setTodoNewTitle] = useState(props.title);
-  const [isEditing, setIsEditing] = useState(false);
-
-  const onCompleteChangedHandler = event => {
-    const updatedTodo = updateObject(todoData, {
-      isCompleted: event.target.checked
-    });
-    setTodoData(updatedTodo);
-    props.onTodoUpdated(updatedTodo);
-  };
-
-  const enterToEditModeHandler = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const exitFromEditMode = () => {
-    setIsEditing(false);
-    setTodoNewTitle(todoData.title);
-  };
-
-  const exitFromEditModeHandler = () => {
-    exitFromEditMode();
-  };
-
-  const onNewTitleChangeHandler = event => {
-    setTodoNewTitle(event.target.value);
-  };
-
-  const saveNewTitle = () => {
-    const updatedTodo = updateObject(todoData, {
-      title: todoNewTitle
-    });
-    props.onTodoUpdated(updatedTodo).then(() => {
-      setTodoData(updatedTodo);
-      exitFromEditModeHandler();
-    });
-  };
-
-  const onInputKeyDownHandler = event => {
-    if (event.key === "Enter") {
-      saveNewTitle();
-    }
-  };
-
-  const titleContent = isEditing ? (
-    <OutsideClickHandler onOutsideClick={exitFromEditModeHandler}>
-      <Input
-        type="text"
-        value={todoNewTitle}
-        onChange={onNewTitleChangeHandler}
-        onKeyDown={onInputKeyDownHandler}
-        autoFocus
-      />
-    </OutsideClickHandler>
-  ) : (
-    <span
-      onDoubleClick={enterToEditModeHandler}
-      style={{
-        textDecoration: todoData.isCompleted ? "line-through" : "none"
-      }}
-    >
-      {todoData.title}
-    </span>
-  );
 
   return (
     <tr className={todoData.isCompleted ? "table-secondary" : ""}>
       <td>
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="checkbox"
-              checked={todoData.isCompleted}
-              onChange={onCompleteChangedHandler}
-            />{" "}
-            &#8203;
-          </Label>
-        </FormGroup>
+        <TodoItemCompleted
+          todoData={todoData}
+          setTodoData={setTodoData}
+          onTodoUpdated={props.onTodoUpdated}
+        />
       </td>
       <td>
-        <div className={classes.TodoItem__Title}>{titleContent}</div>
+        <div className={classes.TodoItem__Title}>
+          <TodoItemTitle
+            todoData={todoData}
+            setTodoData={setTodoData}
+            onTodoUpdated={props.onTodoUpdated}
+          />
+        </div>
       </td>
       <td>
         <Button
