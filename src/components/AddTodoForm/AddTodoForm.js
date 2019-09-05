@@ -14,6 +14,10 @@ import {
 } from "reactstrap";
 
 import * as actions from "../../store/actions/index";
+import {
+  errorSelector,
+  isLoadingSelector
+} from "../../store/selectors/todoSelectors";
 
 const AddTodoForm = props => {
   const [todoTitle, setTodoTitle] = useState("");
@@ -82,8 +86,8 @@ const AddTodoForm = props => {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.todo.loading,
-    error: state.todo.error
+    isLoading: isLoadingSelector(state),
+    error: errorSelector(state)
   };
 };
 
