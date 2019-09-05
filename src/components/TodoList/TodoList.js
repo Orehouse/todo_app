@@ -10,9 +10,14 @@ const TodoList = props => {
     props.onFetchTodoList();
   }, []);
 
-  const todoList = props.todoList.map(todo => (
-    <TodoItem key={todo.id} title={todo.title} id={todo.id} />
-  ));
+  const todoList =
+    props.todoList && props.todoList.length > 0 ? (
+      props.todoList.map(todo => (
+        <TodoItem key={todo.id} title={todo.title} id={todo.id} />
+      ))
+    ) : (
+      <tr className="text-center">Your TODO list is empty!</tr>
+    );
 
   return (
     <Table>
