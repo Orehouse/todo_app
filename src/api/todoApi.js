@@ -3,7 +3,8 @@ import uniqid from "uniqid";
 export async function fetchTodoListAsync() {
   return new Promise(resolve => {
     setTimeout(() => {
-      const todoList = JSON.parse(localStorage.getItem("todoList"));
+      let todoList = JSON.parse(localStorage.getItem("todoList"));
+      todoList = todoList ? todoList : [];
       resolve(todoList);
     }, 500);
   });
