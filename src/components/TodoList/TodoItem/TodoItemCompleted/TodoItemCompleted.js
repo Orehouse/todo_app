@@ -3,13 +3,12 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { updateObject } from "../../../../shared/utility";
 
 const TodoItemCompleted = props => {
-  const [todoData, setTodoData] = [props.todoData, props.setTodoData];
+  const todoData = props.todoData;
 
   const onCompleteChangedHandler = event => {
     const updatedTodo = updateObject(todoData, {
       isCompleted: event.target.checked
     });
-    setTodoData(updatedTodo);
     props.onTodoUpdated(updatedTodo);
   };
 

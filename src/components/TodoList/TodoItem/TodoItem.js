@@ -7,18 +7,13 @@ import * as actions from "../../../store/actions/index";
 import * as classes from "./ToolItem.module.css";
 
 const TodoItem = props => {
-  const [todoData, setTodoData] = useState({
-    id: props.id,
-    title: props.title,
-    isCompleted: props.isCompleted
-  });
+  const todoData = props.todo;
 
   return (
     <tr className={todoData.isCompleted ? "table-secondary" : ""}>
       <td>
         <TodoItemCompleted
           todoData={todoData}
-          setTodoData={setTodoData}
           onTodoUpdated={props.onTodoUpdated}
         />
       </td>
@@ -26,7 +21,6 @@ const TodoItem = props => {
         <div className={classes.TodoItem__Title}>
           <TodoItemTitle
             todoData={todoData}
-            setTodoData={setTodoData}
             onTodoUpdated={props.onTodoUpdated}
           />
         </div>

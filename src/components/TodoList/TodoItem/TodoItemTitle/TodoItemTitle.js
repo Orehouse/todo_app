@@ -7,7 +7,7 @@ const TodoItemTitleInput = props => {
   const [isEditing, setIsEditing] = useState(false);
   const [todoNewTitle, setTodoNewTitle] = useState(props.todoData.title);
 
-  const [todoData, setTodoData] = [props.todoData, props.setTodoData];
+  const todoData = props.todoData;
 
   const enterToEditModeHandler = () => {
     setIsEditing(!isEditing);
@@ -31,7 +31,6 @@ const TodoItemTitleInput = props => {
       title: todoNewTitle
     });
     props.onTodoUpdated(updatedTodo).then(() => {
-      setTodoData(updatedTodo);
       exitFromEditModeHandler();
     });
   };

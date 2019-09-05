@@ -26,6 +26,7 @@ const TodoList = props => {
       getSortedTodoList(props.todoList, true).map(todo => (
         <TodoItem
           key={todo.id}
+          todo={todo}
           title={todo.title}
           id={todo.id}
           isCompleted={todo.isCompleted}
