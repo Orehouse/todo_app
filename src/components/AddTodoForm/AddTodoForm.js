@@ -20,7 +20,7 @@ const AddTodoForm = props => {
 
   const onSubmitHandler = event => {
     event.preventDefault();
-    props.onTodoAdded({ title: todoTitle });
+    props.onTodoAdded({ title: todoTitle }).then(() => setTodoTitle(""));
   };
 
   return (
