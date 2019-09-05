@@ -10,17 +10,20 @@ const TodoList = props => {
     props.onFetchTodoList();
   }, []);
 
-  const getSortedTodoList = unsortedList => {
+  const getSortedTodoList = (unsortedList, isReversed = false) => {
+    const reversedMultiplier = isReversed ? -1 : 1;
     return [...unsortedList].sort((a, b) => {
       const titleA = a.title.toUpperCase();
       const titleB = b.title.toUpperCase();
-      return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+      return (
+        (titleA < titleB ? -1 : titleA > titleB ? 1 : 0) * reversedMultiplier
+      );
     });
   };
 
   const todoList =
     props.todoList && props.todoList.length > 0 ? (
-      getSortedTodoList(props.todoList).map(todo => (
+      getSortedTodoList(props.todoList, true).map(todo => (
         <TodoItem
           key={todo.id}
           title={todo.title}
