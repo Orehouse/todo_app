@@ -20,7 +20,7 @@ export const fetchTodoListFail = error => {
 export const fetchTodoList = () => {
   return dispatch => {
     dispatch(fetchTodoListStart());
-    fetchTodoListAsync()
+    return fetchTodoListAsync()
       .then(todoList => {
         dispatch(fetchTodoListSuccess(todoList));
       })
@@ -43,7 +43,7 @@ export const addOrEditTodoFail = error => {
 export const addOrEditTodo = todo => {
   return dispatch => {
     dispatch(addOrEditTodoStart());
-    putTodoAsync(todo)
+    return putTodoAsync(todo)
       .then(addedTodo => dispatch(addOrEditTodoSuccess(addedTodo)))
       .catch(error => dispatch(addOrEditTodoFail(error)));
   };
