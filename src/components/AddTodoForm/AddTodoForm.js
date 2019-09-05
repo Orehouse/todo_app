@@ -9,7 +9,8 @@ import {
   Button,
   Input,
   Card,
-  CardBody
+  CardBody,
+  Spinner
 } from "reactstrap";
 
 import * as actions from "../../store/actions/index";
@@ -30,7 +31,7 @@ const AddTodoForm = props => {
             <Col lg={12}>
               <Label for="newTodoTitle">Title</Label>
               <Row>
-                <Col xs={10}>
+                <Col xs={9}>
                   <FormGroup>
                     <Input
                       type="text"
@@ -43,11 +44,16 @@ const AddTodoForm = props => {
                     />
                   </FormGroup>
                 </Col>
-                <FormGroup>
-                  <Button color="success" onClick={onSubmitHandler}>
-                    Add
-                  </Button>
-                </FormGroup>
+                <Col xs={2}>
+                  <FormGroup>
+                    <Button color="success" onClick={onSubmitHandler}>
+                      Add
+                    </Button>
+                  </FormGroup>
+                </Col>
+                <Col xs={1} className="text-left">
+                  {props.isLoading && <Spinner color="primary" />}
+                </Col>
               </Row>
             </Col>
           </Row>
