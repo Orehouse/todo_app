@@ -1,21 +1,18 @@
 import * as actionTypes from "./actionTypes";
+import { createAction } from "redux-actions";
 import {
   fetchTodoListAsync,
   putTodoAsync,
   deleteTodoAsync
 } from "../../api/todoApi";
 
-export const fetchTodoListStart = () => {
-  return { type: actionTypes.FETCH_TODO_LIST_START };
-};
-
-export const fetchTodoListSuccess = todoList => {
-  return { type: actionTypes.FETCH_TODO_LIST_SUCCESS, todoList };
-};
-
-export const fetchTodoListFail = error => {
-  return { type: actionTypes.FETCH_TODO_LIST_FAIL, error };
-};
+export const fetchTodoListStart = createAction(
+  actionTypes.FETCH_TODO_LIST_START
+);
+export const fetchTodoListSuccess = createAction(
+  actionTypes.FETCH_TODO_LIST_SUCCESS
+);
+export const fetchTodoListFail = createAction(actionTypes.FETCH_TODO_LIST_FAIL);
 
 export const fetchTodoList = () => {
   return dispatch => {
@@ -28,17 +25,15 @@ export const fetchTodoList = () => {
   };
 };
 
-export const addOrEditTodoStart = () => {
-  return { type: actionTypes.ADD_OR_EDIT_TODO_START };
-};
-
-export const addOrEditTodoSuccess = todo => {
-  return { type: actionTypes.ADD_OR_EDIT_TODO_SUCCESS, todo };
-};
-
-export const addOrEditTodoFail = error => {
-  return { type: actionTypes.ADD_OR_EDIT_TODO_FAIL, error };
-};
+export const addOrEditTodoStart = createAction(
+  actionTypes.ADD_OR_EDIT_TODO_START
+);
+export const addOrEditTodoSuccess = createAction(
+  actionTypes.ADD_OR_EDIT_TODO_SUCCESS
+);
+export const addOrEditTodoFail = createAction(
+  actionTypes.ADD_OR_EDIT_TODO_FAIL
+);
 
 export const addOrEditTodo = todo => {
   return dispatch => {
@@ -49,17 +44,9 @@ export const addOrEditTodo = todo => {
   };
 };
 
-export const removeTodoStart = () => {
-  return { type: actionTypes.REMOVE_TODO_START };
-};
-
-export const removeTodoSuccess = id => {
-  return { type: actionTypes.REMOVE_TODO_SUCCESS, id };
-};
-
-export const removeTodoFail = error => {
-  return { type: actionTypes.REMOVE_TODO_FAIL, error };
-};
+export const removeTodoStart = createAction(actionTypes.REMOVE_TODO_START);
+export const removeTodoSuccess = createAction(actionTypes.REMOVE_TODO_SUCCESS);
+export const removeTodoFail = createAction(actionTypes.REMOVE_TODO_FAIL);
 
 export const removeTodo = id => {
   return dispatch => {
