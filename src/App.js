@@ -15,7 +15,8 @@ const App = props => {
         </Col>
         <Col md={12}>
           <Alert color="primary">
-            To change your TODO, please double-click on its title.
+            To change your TODO, double-click on its name, then press Enter to
+            submit.
           </Alert>
           <TodoList />
         </Col>
