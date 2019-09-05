@@ -44,14 +44,14 @@ const AddTodoForm = props => {
         <Form onSubmit={onSubmitHandler}>
           <Row>
             <Col lg={12}>
-              <Label for="newTodoTitle">Title</Label>
+              <Label for="newTodoTitle">Your new TODO:</Label>
               <Row>
                 <Col xs={9}>
                   <FormGroup>
                     <Input
                       type="text"
                       id="newTodoTitle"
-                      placeholder="Please type what todo"
+                      placeholder="What should be done?"
                       value={todoTitle}
                       onChange={onChangeHandler}
                     />
